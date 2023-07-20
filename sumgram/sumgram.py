@@ -1144,7 +1144,7 @@ def extract_top_ngrams(doc_lst, doc_dct_lst, n, params):
         from genericCommon import nlpBuildVocab
         vocab = nlpBuildVocab(doc_lst)
         if( len(vocab) == 0 ):
-            count_vectorizer = CountVectorizer(stop_words=getStopwordsSet(), token_pattern=params['token_pattern'], ngram_range=(n, n), binary=params['binary_tf_flag'])
+            count_vectorizer = CountVectorizer(stop_words=list(getStopwordsSet()), token_pattern=params['token_pattern'], ngram_range=(n, n), binary=params['binary_tf_flag'])
         else:
             count_vectorizer = CountVectorizer(stop_words=None, vocabulary=vocab, token_pattern=params['token_pattern'], ngram_range=(n, n), binary=params['binary_tf_flag'])
     '''
@@ -1170,7 +1170,7 @@ def extract_top_ngrams(doc_lst, doc_dct_lst, n, params):
 
     
     params['min_df'] = min_df
-    count_vectorizer = CountVectorizer(stop_words=stopwords, token_pattern=params['token_pattern'], ngram_range=(n, n), binary=binary_tf_flag, min_df=min_df)
+    count_vectorizer = CountVectorizer(stop_words=list(stopwords), token_pattern=params['token_pattern'], ngram_range=(n, n), binary=binary_tf_flag, min_df=min_df)
     
     logger.debug('\tfit transfrom - start')
     try:
@@ -1652,7 +1652,7 @@ def main():
     
     '''
         add_stopwords:
-        * unigrams in add_stopwords are used to complemented stopwords in getStopwordsSet() to build initial top n-ngram, see: CountVectorizer(stop_words=stopwords,...)
+        * unigrams in add_stopwords are used to complemented stopwords in getStopwordsSet() to build initial top n-ngram, see: CountVectorizer(stop_words=list(stopwords),...)
         * n-ngrams in add_stopwords are used in removing sumgrams that have n-ngrams, see: rm_empty_and_stopword_ngrams()
     '''
     add_stopwords = []
